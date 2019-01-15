@@ -124,7 +124,7 @@ function get_asset_uri_by_name( array $manifest, string $asset_name, string $ext
 		return get_asset_path_or_uri( $manifest[ $key ], $build_url );
 	}
 
-	// Try JS files. e.g. for CSS files in development.
+	// Try JS files. e.g. for CSS files in development - use the JS version.
 	$key = sprintf( '%s.js', $asset_name );
 	if ( isset( $manifest[ $key ] ) ) {
 		return get_asset_path_or_uri( $manifest[ $key ], $build_url );
@@ -134,37 +134,22 @@ function get_asset_uri_by_name( array $manifest, string $asset_name, string $ext
 }
 
 /**
- * Check a directory for a dev server asset manifest file, and attempt to decode and return the asset list JSON if
- * found.
+ * Attempt to read the asset manifest from a directory.
  *
  * @param string $directory Root directory possibly containing an `asset-manifest.json` file.
- * @return array|null Array of assets on success, else null.
+ * @return array Array of assets on success, else empty array.
  */
-function get_assets_manifest( string $directory ) {
-	$manifest = load_asset_file( trailingslashit( $directory ) . 'asset-manifest.json' );
+function get_assets_manifest( string $directory ) : array {
+	$path = trailingslashit( $directory ) . 'asset-manifest.json';
 
-	if ( empty( $manifest ) ) {
-		return [];
-	}
-
-	return $manifest;
-}
-
-/**
- * Attempt to load a file at the specified path and parse its contents as JSON.
- *
- * @param string $path The path to the JSON file to load.
- * @return array|null; Array of data on success, else null.
- */
-function load_asset_file( $path ) {
 	if ( ! file_exists( $path ) ) {
-		return null;
+		return [];
 	}
 
 	$contents = file_get_contents( $path );
 
 	if ( empty( $contents ) ) {
-		return null;
+		return [];
 	}
 
 	return json_decode( $contents, true );
