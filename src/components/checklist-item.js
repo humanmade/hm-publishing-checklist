@@ -3,7 +3,7 @@ import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 import { Dashicon } from '@wordpress/components';
 
-import { STORES } from '../constants';
+import { STORE } from '../constants';
 
 const ChecklistItem = ( { title, isOK, children } ) => (
 	<div className={ classNames( 'hm-checklist__item', { 'hm-checklist__item--valid': isOK } ) }>
@@ -16,12 +16,12 @@ const ChecklistItem = ( { title, isOK, children } ) => (
 );
 
 const applyWithDispatch = ( dispatch, ownProps ) => ( {
-	updateTest: isOK => dispatch( STORES.PLUGIN ).updateTest( ownProps.id, isOK ),
+	updateTest: isOK => dispatch( STORE.PLUGIN ).updateTest( ownProps.id, isOK ),
 } );
 
 const applyWithSelect = ( select, ownProps ) => {
 	const test = window.hmPublishingChecklistTests.find( check => check.id === ownProps.id );
-	const isOK = select( STORES.PLUGIN ).isTestOK( ownProps.id );
+	const isOK = select( STORE.PLUGIN ).isTestOK( ownProps.id );
 	return {
 		isOK,
 		children: test ? test.getChildren( isOK, ownProps.updateTest ) : null,

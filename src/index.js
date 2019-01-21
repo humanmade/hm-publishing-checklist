@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 import { registerPlugin } from '@wordpress/plugins';
 import { registerStore, select } from '@wordpress/data';
 
-import { PLUGIN_NAME, STORES } from './constants';
+import { PLUGIN_NAME, STORE } from './constants';
 import ToolbarIcon from './components/toolbar-icon';
 import Plugin from './components/plugin';
 import { actions, reducer, selectors } from './data';
@@ -27,7 +27,7 @@ select( 'core/editor' ).isEditedPostPublishable = state => {
 		return false;
 	}
 
-	return select( STORES.PLUGIN ).isPublishable();
+	return select( STORE.PLUGIN ).isPublishable();
 }
 
 registerPlugin( PLUGIN_NAME, {
@@ -63,7 +63,7 @@ const handleChange = () => {
 	window.hmPublishingChecklistTests
 		.filter( t => typeof t.test === 'function' )
 		.forEach( t => {
-			wp.data.dispatch( STORES.PLUGIN ).updateTest( t.id, t.test() )
+			wp.data.dispatch( STORE.PLUGIN ).updateTest( t.id, t.test() )
 		} );
 }
 
