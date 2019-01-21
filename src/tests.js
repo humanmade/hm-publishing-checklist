@@ -63,7 +63,7 @@ window.setTimeout( () => {
 	} );
 
 	registerTest( 'test-4', {
-		title: 'Content has length.',
+		title: 'Title has been set.',
 		test: () => !! select( STORES.CORE_EDITOR ).getEditedPostAttribute( 'title' ).length,
 	} );
 

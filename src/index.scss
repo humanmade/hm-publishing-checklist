@@ -10,6 +10,12 @@ $color-error-dk: #d4a3a3;
 	background: $color-error-lt;
 	border: 1px solid $color-error-dk;
 
+	.dashicon {
+		float: left;
+		margin: 0 7px -4px -3px;
+		clear: both;
+	}
+
 	&:first-child {
 		margin-top: 10px;
 	}
@@ -17,6 +23,10 @@ $color-error-dk: #d4a3a3;
 	&:last-child {
 		margin-bottom: 10px;
 	}
+}
+
+.hm-checklist__item__content {
+	margin-top: 10px;
 }
 
 .hm-checklist__item--valid {

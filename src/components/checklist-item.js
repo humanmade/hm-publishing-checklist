@@ -1,14 +1,16 @@
 import classNames from 'classnames';
 import { withDispatch, withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
+import { Dashicon } from '@wordpress/components';
 
 import { STORES } from '../constants';
 
 const ChecklistItem = ( { title, isOK, children } ) => (
 	<div className={ classNames( 'hm-checklist__item', { 'hm-checklist__item--valid': isOK } ) }>
+		<Dashicon icon={ isOK ? 'yes' : 'no' }/>
 		<b>{ title }</b>
 		{ children && (
-			<div>{ children }</div>
+			<div className="hm-checklist__item__content">{ children }</div>
 		) }
 	</div>
 );
