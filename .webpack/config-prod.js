@@ -1,6 +1,7 @@
 /**
  * The Production Config.
  */
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
 const OptimizeCSSAssetsPlugin = require( 'optimize-css-assets-webpack-plugin' );
@@ -86,6 +87,9 @@ const prodConfig = config => ( {
 
 	// Allow config to add plugins.
 	plugins: [
+		new CleanWebpackPlugin( [ '../build' ], {
+			allowExternal: true,
+		} ),
 		new MiniCssExtractPlugin( {
 			filename: '[name]-[hash].css',
 		} ),
@@ -114,7 +118,7 @@ const prodConfig = config => ( {
 	],
 } );
 
-module.exports = config.map( ({ name, entry, path }) => prodConfig( {
+module.exports = config.map( ({ name, entry, path }) => console.log( filePath( path, 'build' ) ) || prodConfig( {
 	name,
 	entry,
 	context: relPath( path ),

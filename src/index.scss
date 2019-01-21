@@ -1,4 +1,25 @@
-* {
-  background: yellow !important;
-  color: blue !important;
+$color-valid-lt: #eff9f1;
+$color-valid-dk: #aac2af;
+$color-error-lt: #f9e2e2;
+$color-error-dk: #d4a3a3;
+
+.hm-checklist__item {
+	margin: 10px;
+	padding: 10px;
+	border-radius: 2px;
+	background: $color-error-lt;
+	border: 1px solid $color-error-dk;
+
+	&:first-child {
+		margin-top: 10px;
+	}
+
+	&:last-child {
+		margin-bottom: 10px;
+	}
+}
+
+.hm-checklist__item--valid {
+	background: $color-valid-lt;
+	border: 1px solid $color-valid-dk;
 }
