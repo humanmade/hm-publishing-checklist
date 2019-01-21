@@ -1,13 +1,12 @@
 /* eslint-disable no-console */
 /* global wp */
 
-import { dispatch } from '@wordpress/data';
+import { Fragment } from '@wordpress/element';
+import { dispatch, select } from '@wordpress/data';
+import { Button } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 import { STORES } from './constants';
-import TestCheckbox from './components/test-checkbox';
-// import { registerTest } from './index';
-
-console.log( 'hi' );
 
 window.hmPublishingChecklistTests = [];
 
@@ -24,7 +23,7 @@ export const registerTest = (
 		title,
 		test,
 		defaultState = false,
-		children = null,
+		getChildren = () => null,
 	} = args;
 
 	dispatch( STORES.PLUGIN ).updateTest( id, defaultState );
@@ -34,7 +33,7 @@ export const registerTest = (
 		title,
 		test,
 		defaultState,
-		children,
+		getChildren,
 	} );
 }
 
@@ -55,10 +54,34 @@ window.setTimeout( () => {
 	registerTest( 'test-3', {
 		title: 'Check the box to approve.',
 		defaultState: false,
-		children: (
-			<div>
-				<TestCheckbox id="test-3" />
-			</div>
+		getChildren: ( isOK, updateTest ) => (
+			<label >
+				<input type="checkbox" checked={ isOK } onChange={ () => updateTest( ! isOK ) } />
+				I have checked this manually.
+			</label>
+		),
+	} );
+
+	registerTest( 'test-4', {
+		title: 'Content has length.',
+		test: () => !! select( STORES.CORE_EDITOR ).getEditedPostAttribute( 'title' ).length,
+	} );
+
+	registerTest( 'test-5', {
+		title: 'Post has at least 1 tag.',
+		test: () => wp.data.select( STORES.CORE_EDITOR ).getEditedPostAttribute( 'tags' ).length > 0,
+		getChildren: isOK => (
+			<Fragment>
+				{ ! isOK && (
+					<Button
+						isSmall
+						className="tags-validation__button"
+						onClick={ () => wp.data.dispatch( STORES.CORE_EDIT_POST ).openGeneralSidebar( 'edit-post/document' ) }
+					>
+						{ __( 'Add tags', 'siemens' ) }
+					</Button>
+				) }
+			</Fragment>
 		),
 	} );
 }, 500 );

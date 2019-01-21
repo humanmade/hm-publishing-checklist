@@ -6,5 +6,6 @@ export const ACTIONS = {
 
 export const STORES = {
 	CORE_EDITOR: 'core/editor',
+	CORE_EDIT_POST: 'core/edit-post',
 	PLUGIN: 'hm/publishing-checklist',
 }
