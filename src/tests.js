@@ -39,13 +39,9 @@ export const registerTest = (
 }
 
 window.setTimeout( () => {
-
 	registerTest( 'test-1', {
-		title: 'This test always passes',
-		test: () => {
-			console.log( 'testing test-1' );
-			return true;
-		},
+		title: 'Test is OK by default but can be updated externally.',
+		defaultState: true,
 	} );
 
 	registerTest( 'test-2', {
@@ -57,7 +53,7 @@ window.setTimeout( () => {
 	} );
 
 	registerTest( 'test-3', {
-		title: 'Check the box.',
+		title: 'Check the box to approve.',
 		defaultState: false,
 		children: (
 			<div>

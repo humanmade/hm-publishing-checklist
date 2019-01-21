@@ -8,13 +8,6 @@ const DEFAULT_STATE = {
 };
 
 export const actions = {
-	updateIsPublishable( isOK ) {
-		return {
-			type: ACTIONS.UPDATE_IS_PUBLISHABLE,
-			isOK,
-		};
-	},
-
 	updateTest( testId, isOK ) {
 		return {
 			type: ACTIONS.UPDATE_IS_TEST_OK,
