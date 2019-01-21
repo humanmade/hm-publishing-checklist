@@ -75,7 +75,6 @@ window.setTimeout( () => {
 				{ ! isOK && (
 					<Button
 						isSmall
-						className="tags-validation__button"
 						onClick={ () => wp.data.dispatch( STORES.CORE_EDIT_POST ).openGeneralSidebar( 'edit-post/document' ) }
 					>
 						{ __( 'Add tags', 'siemens' ) }
